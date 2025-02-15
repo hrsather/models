@@ -24,7 +24,7 @@ jobs:
       - name: Build and publish
         run: |
           export TWINE_USERNAME=aws
-          export TWINE_PASSWORD=`aws codeartifact get-authorization-token --domain my-domain --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} --query authorizationToken --output text`
-          export TWINE_REPOSITORY_URL=`aws codeartifact get-repository-endpoint --domain my-domain --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} --repository my-private-repo --format pypi --query repositoryEndpoint --output text`
+          export TWINE_PASSWORD=`aws codeartifact get-authorization-token --domain base-domain --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} --query authorizationToken --output text`
+          export TWINE_REPOSITORY_URL=`aws codeartifact get-repository-endpoint --domain base-domain --domain-owner ${{ secrets.AWS_ACCOUNT_ID }} --repository models --format pypi --query repositoryEndpoint --output text`
           python setup.py sdist bdist_wheel
           twine upload dist/*
